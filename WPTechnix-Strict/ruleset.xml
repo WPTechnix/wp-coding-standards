@@ -1,0 +1,100 @@
+<?xml version="1.0" ?>
+<ruleset
+    name="WPTechnix-Strict"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpcodesniffer.com/phpcs.xsd"
+>
+
+    <description>
+        Opt-in strict analysis standard: strict_types, full type hints, complexity
+        metrics, import discipline, and opinionated correctness.
+    </description>
+
+    <!-- Types and strictness. Generic.RequireStrictTypes keeps declare() formatting with PSR-12. -->
+    <rule ref="Generic.PHP.RequireStrictTypes" />
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint" />
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint" />
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint" />
+    <rule ref="SlevomatCodingStandard.TypeHints.ClassConstantTypeHint" />
+    <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint" />
+    <rule ref="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax" />
+    <rule ref="SlevomatCodingStandard.Functions.StrictCall" />
+
+    <!-- Classes and OOP design. -->
+    <rule ref="SlevomatCodingStandard.Classes.RequireAbstractOrFinal" />
+    <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference" />
+    <rule ref="SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants" />
+    <rule ref="SlevomatCodingStandard.Classes.DisallowStringExpressionPropertyFetch" />
+    <rule ref="SlevomatCodingStandard.Classes.RequireSelfReference" />
+    <rule ref="SlevomatCodingStandard.PHP.DisallowDirectMagicInvokeCall" />
+    <rule ref="SlevomatCodingStandard.Classes.ForbiddenPublicProperty">
+        <properties>
+            <property name="allowReadonly" value="true" />
+        </properties>
+    </rule>
+
+    <!-- Functions and closures. -->
+    <rule ref="SlevomatCodingStandard.Functions.StaticClosure" />
+    <rule ref="SlevomatCodingStandard.Functions.DisallowEmptyFunction" />
+
+    <!-- Control structures and logic. -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit">
+        <properties>
+            <property name="ignoreStandaloneIfInScope" value="true" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowEmpty" />
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullSafeObjectOperator" />
+    <rule ref="SlevomatCodingStandard.Operators.RequireOnlyStandaloneIncrementAndDecrementOperators" />
+
+    <!-- Variables, arrays, and scalars. -->
+    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable" />
+    <rule ref="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation" />
+    <rule ref="SlevomatCodingStandard.PHP.RequireNowdoc" />
+    <rule ref="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator" />
+
+    <!-- Exceptions and error handling. -->
+    <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly" />
+    <rule ref="SlevomatCodingStandard.Exceptions.RequireNonCapturingCatch" />
+
+    <!-- Complexity metrics. Cognitive complexity is the primary readability target. -->
+    <rule ref="SlevomatCodingStandard.Complexity.Cognitive">
+        <properties>
+            <property name="warningThreshold" value="12" />
+            <property name="errorThreshold" value="20" />
+        </properties>
+    </rule>
+    <rule ref="Generic.Metrics.CyclomaticComplexity">
+        <properties>
+            <property name="complexity" value="10" />
+            <property name="absoluteComplexity" value="20" />
+        </properties>
+    </rule>
+    <rule ref="Generic.Metrics.NestingLevel">
+        <properties>
+            <property name="nestingLevel" value="5" />
+            <property name="absoluteNestingLevel" value="10" />
+        </properties>
+    </rule>
+
+    <!-- Imports: import namespaced classes. Allow both qualified and unqualified global functions, constants, and exceptions. -->
+    <rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
+        <properties>
+            <property name="searchAnnotations" value="true" />
+            <property name="allowFullyQualifiedGlobalFunctions" value="true" />
+            <property name="allowFullyQualifiedGlobalConstants" value="true" />
+            <property name="allowFullyQualifiedExceptions" value="true" />
+            <property name="allowFallbackGlobalFunctions" value="true" />
+            <property name="allowFallbackGlobalConstants" value="true" />
+            <property name="allowFullyQualifiedNameForCollidingClasses" value="true" />
+            <property name="allowFullyQualifiedNameForCollidingFunctions" value="true" />
+            <property name="allowFullyQualifiedNameForCollidingConstants" value="true" />
+        </properties>
+    </rule>
+
+    <!-- Documentation and annotations. -->
+    <rule ref="SlevomatCodingStandard.Commenting.AnnotationName" />
+    <rule ref="SlevomatCodingStandard.Commenting.DeprecatedAnnotationDeclaration" />
+    <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration" />
+
+</ruleset>

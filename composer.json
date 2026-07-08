@@ -1,0 +1,81 @@
+{
+  "name": "wptechnix/wp-coding-standards",
+  "description": "PHP_CodeSniffer rulesets for WordPress development. Combines WordPress Coding Standards (WPCS), VIPCS, PHPCompatibilityWP, PHPCSExtra, and Slevomat Coding Standard.",
+  "type": "phpcodesniffer-standard",
+  "keywords": [
+    "phpcs",
+    "php_codesniffer",
+    "coding-standard",
+    "coding-standards",
+    "static-analysis",
+    "wordpress",
+    "wpcs",
+    "vip",
+    "vipcs",
+    "psr-12",
+    "linter",
+    "slevomat",
+    "php-compatibility",
+    "wordpress-coding-standards"
+  ],
+  "authors": [
+    {
+      "name": "WPTechnix",
+      "homepage": "https://github.com/WPTechnix"
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/WPTechnix/wp-coding-standards",
+  "support": {
+    "issues": "https://github.com/WPTechnix/wp-coding-standards/issues",
+    "source": "https://github.com/WPTechnix/wp-coding-standards"
+  },
+  "require": {
+    "php": ">=8.0",
+    "automattic/vipwpcs": "^3.0.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.1.2",
+    "phpcompatibility/phpcompatibility-wp": "^2.1.8",
+    "slevomat/coding-standard": "~8.22.0",
+    "squizlabs/php_codesniffer": "^3.13.5",
+    "wp-coding-standards/wpcs": "^3.3.0"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "scripts": {
+    "list-standards": "phpcs -i",
+    "explain:base": "phpcs --standard=WPTechnix -e",
+    "explain:psr4": "phpcs --standard=WPTechnix-PSR4 -e",
+    "explain:psr": "phpcs --standard=WPTechnix-PSR -e",
+    "explain:strict": "phpcs --standard=WPTechnix-Strict -e",
+    "validate-rulesets": [
+      "phpcs -i",
+      "phpcs --standard=WPTechnix -e",
+      "phpcs --standard=WPTechnix-PSR4 -e",
+      "phpcs --standard=WPTechnix-PSR -e",
+      "phpcs --standard=WPTechnix-Strict -e",
+      "phpcs --standard=WPTechnix,WPTechnix-Strict -e",
+      "phpcs --standard=WPTechnix-PSR4,WPTechnix-PSR -e",
+      "phpcs --standard=WPTechnix,WPTechnix-PSR4,WPTechnix-PSR,WPTechnix-Strict -e"
+    ],
+    "lint:fixtures": [
+      "phpcs -q --standard=WPTechnix --sniffs=Universal.Arrays.DisallowShortArraySyntax,Generic.WhiteSpace.DisallowSpaceIndent,WordPress.PHP.YodaConditions tests/fixtures/wp-style.php",
+      "phpcs -q --standard=WPTechnix-PSR --sniffs=Universal.Arrays.DisallowShortArraySyntax,Generic.Arrays.DisallowLongArraySyntax,Generic.WhiteSpace.DisallowSpaceIndent,Generic.WhiteSpace.DisallowTabIndent,WordPress.PHP.YodaConditions tests/fixtures/psr-style.php",
+      "phpcs -q --standard=WPTechnix-PSR4,WPTechnix-PSR,WPTechnix-Strict --sniffs=Universal.Arrays.DisallowShortArraySyntax,Generic.Arrays.DisallowLongArraySyntax,Generic.WhiteSpace.DisallowSpaceIndent,Generic.WhiteSpace.DisallowTabIndent,WordPress.PHP.YodaConditions tests/fixtures/psr-style.php"
+    ]
+  },
+  "scripts-descriptions": {
+    "list-standards": "List the coding standards registered with PHP_CodeSniffer.",
+    "explain:base": "Print the full sniff list resolved by WPTechnix (base).",
+    "explain:psr4": "Print the full sniff list resolved by WPTechnix-PSR4 (includes the base).",
+    "explain:psr": "Print the full sniff list resolved by WPTechnix-PSR (includes the base).",
+    "explain:strict": "Print the full sniff list resolved by WPTechnix-Strict (WordPress-independent).",
+    "validate-rulesets": "Verify all standards are registered and resolve both standalone and combined.",
+    "lint:fixtures": "Lint the style fixtures to confirm no formatting deadlock (short-vs-long array, tab-vs-space indent) exists in the base or the PSR standard."
+  }
+}

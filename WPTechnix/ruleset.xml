@@ -1,0 +1,162 @@
+<?xml version="1.0" ?>
+<ruleset
+    name="WPTechnix"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpcodesniffer.com/phpcs.xsd"
+>
+
+    <description>
+        Base WordPress coding standard for WPTechnix projects. Built on
+        WordPress-Extra, WordPress-Docs, a platform-agnostic VIPCS subset,
+        PHPCompatibilityWP, and a curated set of Slevomat quality sniffs.
+    </description>
+
+    <arg name="extensions" value="php" />
+    <arg value="sp" />
+    <arg name="colors" />
+
+    <!-- PHP floor for PHPCompatibilityWP. Override per project. -->
+    <config name="testVersion" value="8.0-" />
+
+    <!-- Never lint third-party code. -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/vendor-prefixed/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+
+    <!-- WordPress style and best practices. -->
+    <rule ref="WordPress-Extra" />
+
+    <!-- WP-Cron is standard for plugins; the sniff cannot see the schedule filter. -->
+    <rule ref="WordPress.WP.CronInterval">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Exception messages are developer-facing and do not need output escaping. -->
+    <rule ref="WordPress.Security.EscapeOutput.ExceptionNotEscaped">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Plugins define custom capabilities outside WPCS's fixed list. -->
+    <rule ref="WordPress.WP.Capabilities.UnknownCapability">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Prefixing cannot know your project prefix. Re-enable it in your phpcs.xml. -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <severity>0</severity>
+    </rule>
+
+    <!-- WordPress docblock rules. -->
+    <rule ref="WordPress-Docs" />
+
+    <!-- A documented exception interface already covers the concrete throw. -->
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Allow "/" as a hook-name delimiter, e.g. wptechnix/hook_name. -->
+    <rule ref="WordPress.NamingConventions.ValidHookName">
+        <properties>
+            <property name="additionalWordDelimiters" value="/" />
+        </properties>
+    </rule>
+
+    <!-- VIPCS platform-agnostic subset. -->
+    <rule ref="WordPressVIPMinimum.Security.ProperEscapingFunction" />
+    <rule ref="WordPressVIPMinimum.Security.ExitAfterRedirect" />
+    <rule ref="WordPressVIPMinimum.Security.EscapingVoidReturnFunctions" />
+    <rule ref="WordPressVIPMinimum.Security.PHPFilterFunctions" />
+    <rule ref="WordPressVIPMinimum.Security.StaticStrreplace" />
+    <rule ref="WordPressVIPMinimum.Hooks.AlwaysReturnInFilter" />
+    <rule ref="WordPressVIPMinimum.Hooks.PreGetPosts" />
+    <rule ref="WordPressVIPMinimum.Classes.DeclarationCompatibility" />
+    <rule ref="WordPressVIPMinimum.Functions.CheckReturnValue" />
+    <rule ref="WordPressVIPMinimum.Functions.StripTags" />
+    <rule ref="WordPressVIPMinimum.Constants.ConstantString" />
+    <rule ref="WordPressVIPMinimum.Performance.RegexpCompare" />
+    <rule ref="WordPressVIPMinimum.Files.IncludingNonPHPFile" />
+    <rule ref="WordPressVIPMinimum.Functions.DynamicCalls" />
+    <rule ref="WordPressVIPMinimum.Performance.CacheValueOverride" />
+    <rule ref="WordPressVIPMinimum.Performance.NoPaging" />
+    <rule ref="WordPressVIPMinimum.Performance.OrderByRand" />
+    <rule ref="WordPressVIPMinimum.Performance.WPQueryParams" />
+
+    <!-- PHP cross-version compatibility. -->
+    <rule ref="PHPCompatibilityWP" />
+
+    <!-- Gap-filling quality sniffs not bundled by WPCS. -->
+    <rule ref="Universal.PHP.NoFQNTrueFalseNull" />
+    <rule ref="Universal.WhiteSpace.FirstClassCallableSpacing" />
+    <rule ref="Universal.PHP.OneStatementInShortEchoTag" />
+    <rule ref="Generic.Commenting.Todo" />
+    <rule ref="Generic.Commenting.Fixme" />
+
+    <!-- Slevomat core: correctness and maintainability. -->
+
+    <!-- Correctness and safety -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowContinueWithoutIntegerOperandInSwitch" />
+    <rule ref="SlevomatCodingStandard.Variables.DisallowVariableVariable" />
+    <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility" />
+    <rule ref="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue" />
+    <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch" />
+
+    <!-- Dead and redundant code cleanup -->
+    <rule ref="SlevomatCodingStandard.Variables.DuplicateAssignmentToVariable" />
+    <rule ref="SlevomatCodingStandard.Variables.UselessVariable" />
+    <rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure" />
+    <rule ref="SlevomatCodingStandard.Functions.UselessParameterDefaultValue" />
+    <rule ref="SlevomatCodingStandard.Classes.UselessLateStaticBinding" />
+    <rule ref="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn" />
+    <rule ref="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator" />
+    <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon" />
+    <rule ref="SlevomatCodingStandard.Commenting.EmptyComment" />
+    <rule ref="SlevomatCodingStandard.Namespaces.UselessAlias" />
+    <rule ref="SlevomatCodingStandard.Namespaces.UseFromSameNamespace" />
+
+    <!-- Imports hygiene -->
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
+        <properties>
+            <property name="searchAnnotations" value="true" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash" />
+    <rule ref="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine" />
+
+    <!-- Modernization -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator" />
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator" />
+    <rule ref="SlevomatCodingStandard.TypeHints.LongTypeHints" />
+    <rule ref="SlevomatCodingStandard.Classes.DisallowMultiConstantDefinition" />
+    <rule ref="SlevomatCodingStandard.Classes.DisallowMultiPropertyDefinition" />
+
+    <!-- Performance -->
+    <rule ref="SlevomatCodingStandard.PHP.OptimizedFunctionsWithoutUnpacking" />
+
+    <!-- Modern-PHP formatting: attributes, enums, arrow functions, named args, union/DNF types. -->
+    <rule ref="SlevomatCodingStandard.Attributes.AttributeAndTargetSpacing" />
+    <rule ref="SlevomatCodingStandard.Attributes.DisallowAttributesJoining" />
+    <rule ref="SlevomatCodingStandard.Attributes.DisallowMultipleAttributesPerLine" />
+    <rule ref="SlevomatCodingStandard.Attributes.RequireAttributeAfterDocComment" />
+    <rule ref="SlevomatCodingStandard.Classes.BackedEnumTypeSpacing" />
+    <rule ref="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration">
+        <properties>
+            <property name="allowMultiLine" value="true" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Functions.NamedArgumentSpacing" />
+    <rule ref="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat">
+        <properties>
+            <property name="withSpaces" value="no" />
+            <property name="shortNullable" value="yes" />
+            <property name="nullPosition" value="last" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.DNFTypeHintFormat">
+        <properties>
+            <property name="withSpacesAroundOperators" value="no" />
+            <property name="withSpacesInsideParentheses" value="no" />
+            <property name="shortNullable" value="yes" />
+            <property name="nullPosition" value="last" />
+        </properties>
+    </rule>
+</ruleset>

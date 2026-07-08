@@ -1,0 +1,40 @@
+# Changelog
+
+All notable changes to this project are documented here.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/),
+and this project adheres to [Semantic Versioning](https://semver.org/).
+
+## [1.0.0] — 2026-07-08
+
+### Added
+
+- **WPTechnix** — Base WordPress coding standard. Inherits `WordPress-Extra` and `WordPress-Docs`, then layers on a platform-agnostic VIPCS subset (security, escaping, performance, hooks), `PHPCompatibilityWP` (default PHP floor: 8.0), and a curated Slevomat selection: dead catch detection, useless variable elimination, import hygiene, null-coalescing enforcement, and modern PHP formatting (attributes, enums, arrow functions, union/DNF types). WordPress conventions throughout: tab indentation, long arrays, Yoda conditions.
+
+- **WPTechnix-PSR4** — PSR-4 file naming standard. Silences `WordPress.Files.FileName` and the redundant `@package` tag so classes live as `Plugin.php` rather than `class-plugin.php`. Inherits the base.
+
+- **WPTechnix-PSR** — Unified PSR standard combining PSR-4 file naming with PSR-12 formatting: 4-space indent, short arrays, next-line braces, no Yoda conditions, no `snake_case` enforcement. References `PSR12` (excluding `PSR1.Files.SideEffects`), enables `Generic.Arrays.DisallowLongArraySyntax` and `SlevomatCodingStandard.PHP.ShortList`, and silences conflicting WordPress formatting sniffs via severity overrides rather than exclusions to ensure correct merge resolution regardless of combination order. Inherits the base.
+
+- **WPTechnix-Strict** — WordPress-independent static analysis standard for any PHP 8.0+ codebase. Enforces parameter, return, property, and class constant type hints; cognitive (warn 12 / error 20), cyclomatic (10), and nesting (5) complexity limits; `abstract`/`final` on non-interface classes, `self` references, and readonly-allowed public property restrictions; early exit, null-safe operator, unused variable, strict call, and non-capturing catch rules; and mandatory import of all namespaced references. Standalone — does not depend on WPTechnix.
+
+- `README.md` documenting architecture, layering model, standard selection guidance, comparison table, and usage.
+
+- `CHANGELOG.md` — this file.
+
+- `composer.json` declaring `wptechnix/wp-coding-standards` (type: `phpcodesniffer-standard`) and requiring `wp-coding-standards/wpcs: ^3.3.0`, `automattic/vipwpcs: ^3.0.1`, `phpcompatibility/phpcompatibility-wp: ^2.1.8`, `slevomat/coding-standard: ~8.22.0`, `squizlabs/php_codesniffer: ^3.13.5`, and `dealerdirect/phpcodesniffer-composer-installer: ^1.1.2`.
+
+- Composer scripts for listing registered standards, explaining resolved sniff sets, validating all rule combinations (`validate-rulesets`), and linting formatting fixtures (`lint:fixtures`).
+
+- CI workflow (`.github/workflows/rulesets.yml`) that runs `composer validate`, `composer validate-rulesets`, and `composer lint:fixtures` on PHP 8.0 and 8.3 for every push and pull request to `main`.
+
+- Commit lint workflow (`.github/workflows/commitlint.yml`) enforcing conventional commit format.
+
+- Wiki sync workflow (`.github/workflows/wiki.yml`) publishing `docs/` to the repository wiki on push.
+
+- Dependabot configuration (`.github/dependabot.yml`) for weekly Composer and GitHub Actions updates.
+
+- Docker-based Composer runner (`scripts/composer`, `scripts/Dockerfile`) using the official `composer:2.8` image with a persistent cache volume, removing the need for a host PHP installation.
+
+- Test fixtures (`tests/fixtures/wp-style.php`, `tests/fixtures/psr-style.php`) exercising both formatting regimes to confirm deadlock-free operation across all standard combinations.
+
+[1.0.0]: https://github.com/WPTechnix/wp-coding-standards/releases/tag/v1.0.0

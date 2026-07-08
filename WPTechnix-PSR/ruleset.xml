@@ -1,0 +1,98 @@
+<?xml version="1.0" ?>
+<ruleset
+    name="WPTechnix-PSR"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpcodesniffer.com/phpcs.xsd"
+>
+
+    <description>
+        PSR coding standard for WordPress projects: PSR-4 file naming and PSR-12
+        formatting (4-space indent, short arrays, next-line braces, no Yoda
+        conditions). Includes the WPTechnix base automatically.
+    </description>
+
+    <!-- The base this standard is built on. -->
+    <rule ref="WPTechnix" />
+
+    <!-- PSR-12 is the primary style; re-referenced so its config wins for shared sniffs. -->
+    <rule ref="PSR12">
+        <!-- Plugin entry points inherently mix declarations and side effects. -->
+        <exclude name="PSR1.Files.SideEffects" />
+    </rule>
+
+    <!-- Indentation: 4 spaces. Re-assert ScopeIndent over the base's tabIndent. -->
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+        <properties>
+            <property name="exact" value="false" />
+            <property name="indent" value="4" />
+            <property name="tabIndent" value="false" />
+        </properties>
+    </rule>
+    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Arrays: short syntax. Silence the base's long-array and WP array rules. -->
+    <rule ref="Universal.Arrays.DisallowShortArraySyntax">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.Arrays">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Whitespace and parentheses: PSR-12 owns spacing, so silence WP's opinions. -->
+    <rule ref="WordPress.WhiteSpace">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing">
+        <severity>0</severity>
+    </rule>
+    <rule ref="PEAR.Functions.FunctionCallSignature">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Generic.Formatting.MultipleStatementAlignment">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Braces: next-line style. Silence WP's same-line sniffs, restore PSR-2 messages. -->
+    <rule ref="Generic.Classes.OpeningBraceSameLine">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie">
+        <severity>0</severity>
+    </rule>
+    <rule ref="PSR2.Classes.ClassDeclaration.OpenBraceNewLine">
+        <severity>5</severity>
+    </rule>
+    <rule ref="PSR2.Classes.ClassDeclaration.OpenBraceWrongLine">
+        <severity>5</severity>
+    </rule>
+
+    <!-- Naming: PSR-12 does not mandate snake_case. -->
+    <rule ref="WordPress.NamingConventions.ValidFunctionName">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.NamingConventions.ValidVariableName">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Yoda conditions are not enforced in PSR-12. -->
+    <rule ref="WordPress.PHP.YodaConditions">
+        <severity>0</severity>
+    </rule>
+
+    <!-- @package is redundant under PSR-4 namespaces. -->
+    <rule ref="Squiz.Commenting.FileComment.MissingPackageTag">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Modern style: short arrays and short list destructuring. -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+    <rule ref="SlevomatCodingStandard.PHP.ShortList" />
+
+    <!-- PSR-4 uses Plugin.php, not class-plugin.php. -->
+    <rule ref="WordPress.Files.FileName">
+        <severity>0</severity>
+    </rule>
+
+</ruleset>

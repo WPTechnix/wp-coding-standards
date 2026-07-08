@@ -1,0 +1,23 @@
+# Normalize line endings.
+* text=auto eol=lf
+
+# Keep the Packagist dist tarball lean — exclude dev-only files from
+# `composer install` downloads (they remain in the git repo).
+/.github/            export-ignore
+/.editorconfig       export-ignore
+/.gitattributes      export-ignore
+/.gitignore          export-ignore
+/CONTRIBUTING.md     export-ignore
+/commitlint.config.cjs export-ignore
+/scripts/            export-ignore
+/tests/              export-ignore
+
+# GitHub language stats — only count the actual ruleset XML.
+/.github/*           linguist-vendored
+/.editorconfig       linguist-vendored
+/.gitignore          linguist-vendored
+*.md                 linguist-documentation
+*.txt                linguist-documentation
+LICENSE              linguist-documentation
+commitlint.config.cjs linguist-vendored
+composer.json        linguist-vendored

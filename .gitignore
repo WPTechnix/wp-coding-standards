@@ -1,0 +1,18 @@
+# Editors / OS
+.idea/
+.vscode/
+.zed
+.claude/
+.opencode/
+.ai/
+.cursor/
+dev/
+*.swp
+*.cache
+.DS_Store
+Thumbs.db
+
+vendor/
+node_modules/
+composer.lock
+package.json

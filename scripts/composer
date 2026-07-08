@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+#
+# Run Composer (and therefore PHP_CodeSniffer) inside a container, so no host PHP
+# or Composer install is required — only Docker. All arguments are forwarded to
+# `composer` running in the container.
+#
+#   ./scripts/composer install
+#   ./scripts/composer validate-rulesets
+#   ./scripts/composer lint:fixtures
+#   ./scripts/composer exec -- phpcs --standard=WPTechnix-PSR12 -e
+#
+# The image is built from scripts/Dockerfile on first use and reused via Docker's
+# layer cache; a named volume caches Composer downloads across runs.
+set -eu
+
+IMAGE="wptechnix-cs-tools"
+CACHE_VOLUME="wptechnix-composer-cache"
+
+# Resolve the repo root (this script lives in scripts/).
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+REPO_DIR="$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)"
+
+# On Windows Git Bash, give Docker a native path (E:/...) and stop MSYS from
+# rewriting container-side paths such as /app.
+HOST_DIR="$REPO_DIR"
+case "$(uname -s 2>/dev/null || echo unknown)" in
+    MINGW*|MSYS*|CYGWIN*)
+        HOST_DIR="$(cd "$REPO_DIR" && pwd -W)"
+        export MSYS_NO_PATHCONV=1
+        export MSYS2_ARG_CONV_EXCL='*'
+        ;;
+esac
+
+if ! command -v docker >/dev/null 2>&1; then
+    echo "error: docker is required but was not found on PATH." >&2
+    exit 127
+fi
+
+# Build once; quiet on success, but surface the log if the build fails.
+if ! build_out="$(docker build -q -t "$IMAGE" "$HOST_DIR/scripts" 2>&1)"; then
+    printf '%s\n' "$build_out" >&2
+    exit 1
+fi
+
+# Allocate a TTY only when attached to one (keeps piping and CI happy).
+TTY=""
+if [ -t 0 ] && [ -t 1 ]; then
+    TTY="-it"
+fi
+
+exec docker run --rm $TTY \
+    -v "$HOST_DIR:/app" \
+    -v "$CACHE_VOLUME:/tmp/composer-cache" \
+    -w /app \
+    -e COMPOSER_CACHE_DIR=/tmp/composer-cache \
+    "$IMAGE" composer "$@"
