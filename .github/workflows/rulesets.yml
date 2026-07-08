@@ -53,7 +53,7 @@ jobs:
         run: composer install --no-interaction --prefer-dist
 
       - name: Check ruleset XML is well-formed
-        run: xmllint --noout WPTechnix/ruleset.xml WPTechnix-PSR4/ruleset.xml WPTechnix-PSR/ruleset.xml WPTechnix-Strict/ruleset.xml
+        run: php -r "foreach (glob('WPTechnix*/ruleset.xml') as \$f) { simplexml_load_file(\$f) or exit(1); }"
 
       - name: List registered standards
         run: composer list-standards
