@@ -7,8 +7,8 @@
 
     <description>
         PSR coding standard for WordPress projects: PSR-4 file naming and PSR-12
-        formatting (4-space indent, short arrays, next-line braces, no Yoda
-        conditions). Includes the WPTechnix base automatically.
+        formatting (4-space indent, next-line braces). Includes the WPTechnix base
+        automatically.
     </description>
 
     <!-- The base this standard is built on. -->
@@ -32,10 +32,7 @@
         <severity>0</severity>
     </rule>
 
-    <!-- Arrays: short syntax. Silence the base's long-array and WP array rules. -->
-    <rule ref="Universal.Arrays.DisallowShortArraySyntax">
-        <severity>0</severity>
-    </rule>
+    <!-- Array formatting: silence WP-specific array rules that conflict with PSR-12 spacing. -->
     <rule ref="WordPress.Arrays">
         <severity>0</severity>
     </rule>
@@ -76,18 +73,12 @@
         <severity>0</severity>
     </rule>
 
-    <!-- Yoda conditions are not enforced in PSR-12. -->
-    <rule ref="WordPress.PHP.YodaConditions">
-        <severity>0</severity>
-    </rule>
-
     <!-- @package is redundant under PSR-4 namespaces. -->
     <rule ref="Squiz.Commenting.FileComment.MissingPackageTag">
         <severity>0</severity>
     </rule>
 
-    <!-- Modern style: short arrays and short list destructuring. -->
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+    <!-- Modern style: short list destructuring. -->
     <rule ref="SlevomatCodingStandard.PHP.ShortList" />
 
     <!-- PSR-4 uses Plugin.php, not class-plugin.php. -->

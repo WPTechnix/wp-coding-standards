@@ -26,6 +26,13 @@
     <!-- WordPress style and best practices. -->
     <rule ref="WordPress-Extra" />
 
+    <!--
+        Overrides from WordPress-Extra.
+
+        Each rule below silences a WordPress-Extra sniff that is too strict,
+        too opinionated, or requires per-project configuration.
+    -->
+
     <!-- WP-Cron is standard for plugins; the sniff cannot see the schedule filter. -->
     <rule ref="WordPress.WP.CronInterval">
         <severity>0</severity>
@@ -45,6 +52,17 @@
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <severity>0</severity>
     </rule>
+
+    <!-- Yoda conditions are not enforced. -->
+    <rule ref="WordPress.PHP.YodaConditions">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Short arrays over long arrays. -->
+    <rule ref="Universal.Arrays.DisallowShortArraySyntax">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
 
     <!-- WordPress docblock rules. -->
     <rule ref="WordPress-Docs" />
