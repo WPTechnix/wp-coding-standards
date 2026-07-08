@@ -1,6 +1,6 @@
 {
   "name": "wptechnix/wp-coding-standards",
-  "description": "PHP_CodeSniffer rulesets for WordPress development. Combines WordPress Coding Standards (WPCS), VIPCS, PHPCompatibilityWP, PHPCSExtra, and Slevomat Coding Standard.",
+  "description": "PHP_CodeSniffer rulesets for WordPress plugin development. Combines WordPress Coding Standards (WPCS), VIPCS, PHPCompatibilityWP, PHPCSExtra, and Slevomat Coding Standard.",
   "type": "phpcodesniffer-standard",
   "keywords": [
     "phpcs",
@@ -64,7 +64,7 @@
       "phpcs --standard=WPTechnix,WPTechnix-PSR4,WPTechnix-PSR,WPTechnix-Strict -e"
     ],
     "lint:fixtures": [
-      "phpcs -q --standard=WPTechnix --sniffs=Universal.Arrays.DisallowShortArraySyntax,Generic.WhiteSpace.DisallowSpaceIndent,WordPress.PHP.YodaConditions tests/fixtures/wp-style.php",
+      "phpcs -q --standard=WPTechnix --sniffs=Generic.Arrays.DisallowLongArraySyntax,Generic.WhiteSpace.DisallowSpaceIndent tests/fixtures/wp-style.php",
       "phpcs -q --standard=WPTechnix-PSR --sniffs=Universal.Arrays.DisallowShortArraySyntax,Generic.Arrays.DisallowLongArraySyntax,Generic.WhiteSpace.DisallowSpaceIndent,Generic.WhiteSpace.DisallowTabIndent,WordPress.PHP.YodaConditions tests/fixtures/psr-style.php",
       "phpcs -q --standard=WPTechnix-PSR4,WPTechnix-PSR,WPTechnix-Strict --sniffs=Universal.Arrays.DisallowShortArraySyntax,Generic.Arrays.DisallowLongArraySyntax,Generic.WhiteSpace.DisallowSpaceIndent,Generic.WhiteSpace.DisallowTabIndent,WordPress.PHP.YodaConditions tests/fixtures/psr-style.php"
     ]

@@ -2,8 +2,7 @@
 /**
  * WP-style fixture for the formatting-deadlock check.
  *
- * Tab indentation, long array syntax, and Yoda conditions. Kept clean under
- * WPTechnix for the array, indent, and Yoda sniffs.
+ * Tab indentation. Kept clean under WPTechnix for the indent sniff.
  *
  * @package WPTechnix\Fixtures
  */
@@ -23,12 +22,12 @@ class Wp_Style_Fixture {
 	 * @return array
 	 */
 	public function merge( $input ) {
-		$defaults = array(
+		$defaults = [
 			'alpha' => 1,
 			'beta'  => 2,
-		);
+		];
 
-		if ( true === empty( $input ) ) {
+		if ( empty( $input ) ) {
 			return $defaults;
 		}
 

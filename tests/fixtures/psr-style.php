@@ -7,8 +7,7 @@ namespace WPTechnix\Fixtures;
 /**
  * PSR-style fixture for the formatting-deadlock check.
  *
- * Four-space indentation, short-array syntax, and no Yoda conditions. Kept clean
- * under WPTechnix-PSR for the array and indent sniffs.
+ * Four-space indentation. Kept clean under WPTechnix-PSR for the indent sniff.
  */
 final class PsrStyleFixture
 {
