@@ -5,6 +5,12 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.1] — 2026-07-11
+
+### Changed
+
+- **WPTechnix**: Removed deprecated `SlevomatCodingStandard.TypeHints.UnionTypeHintFormat` sniff (deprecated since Slevomat CS 8.16.0). The replacement `DNFTypeHintFormat` sniff was already configured with equivalent property values -- no behaviour change.
+
 ## [1.0.0] — 2026-07-08
 
 ### Added
@@ -38,3 +44,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Test fixtures (`tests/fixtures/wp-style.php`, `tests/fixtures/psr-style.php`) exercising both formatting regimes to confirm deadlock-free operation across all standard combinations.
 
 [1.0.0]: https://github.com/WPTechnix/wp-coding-standards/releases/tag/v1.0.0
+[1.0.1]: https://github.com/WPTechnix/wp-coding-standards/releases/tag/v1.0.1
