@@ -15,8 +15,8 @@
     <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint" />
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint" />
     <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint" />
-    <rule ref="SlevomatCodingStandard.TypeHints.ClassConstantTypeHint" />
-    <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint" />
+    <!-- <rule ref="SlevomatCodingStandard.TypeHints.ClassConstantTypeHint" /> -->
+    <!-- <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint" /> -->
     <rule ref="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax" />
     <rule ref="SlevomatCodingStandard.Functions.StrictCall" />
 
