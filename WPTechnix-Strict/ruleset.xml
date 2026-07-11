@@ -20,6 +20,17 @@
     <rule ref="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax" />
     <rule ref="SlevomatCodingStandard.Functions.StrictCall" />
 
+    <!-- Prevent Slevomat from automatically removing redundant PHPDoc types -->
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation">
+        <severity>0</severity>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation">
+        <severity>0</severity>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.UselessAnnotation">
+        <severity>0</severity>
+    </rule>
+
     <!-- Classes and OOP design. -->
     <rule ref="SlevomatCodingStandard.Classes.RequireAbstractOrFinal" />
     <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference" />
@@ -96,5 +107,4 @@
     <rule ref="SlevomatCodingStandard.Commenting.AnnotationName" />
     <rule ref="SlevomatCodingStandard.Commenting.DeprecatedAnnotationDeclaration" />
     <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration" />
-
 </ruleset>
