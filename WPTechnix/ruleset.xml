@@ -72,6 +72,13 @@
         <severity>0</severity>
     </rule>
 
+    <!-- Skip function comments for inherited docblocks. -->
+    <rule ref="Squiz.Commenting.FunctionComment">
+        <properties>
+            <property name="skipIfInheritdoc" value="true"/>
+        </properties>
+    </rule>
+
     <!-- Allow "/" as a hook-name delimiter, e.g. wptechnix/hook_name. -->
     <rule ref="WordPress.NamingConventions.ValidHookName">
         <properties>
@@ -117,6 +124,8 @@
     <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility" />
     <rule ref="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue" />
     <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch" />
+    <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly" />
+    <rule ref="SlevomatCodingStandard.Functions.StrictCall" />
 
     <!-- Dead and redundant code cleanup -->
     <rule ref="SlevomatCodingStandard.Variables.DuplicateAssignmentToVariable" />
@@ -168,6 +177,17 @@
             <property name="withSpacesInsideParentheses" value="no" />
             <property name="shortNullable" value="yes" />
             <property name="nullPosition" value="last" />
+        </properties>
+    </rule>
+
+    <!--
+        Numeric separators improve readability for large integers. Fractional
+        separators are intentionally not enforced because they tend to reduce
+        readability for common decimal constants.
+    -->
+    <rule ref="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator">
+        <properties>
+            <property name="minDigitsAfterDecimalPoint" value="20"/>
         </properties>
     </rule>
 </ruleset>
