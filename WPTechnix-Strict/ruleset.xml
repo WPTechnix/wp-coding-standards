@@ -18,7 +18,6 @@
     <!-- <rule ref="SlevomatCodingStandard.TypeHints.ClassConstantTypeHint" /> -->
     <!-- <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint" /> -->
     <rule ref="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax" />
-    <rule ref="SlevomatCodingStandard.Functions.StrictCall" />
 
     <!-- Prevent Slevomat from automatically removing redundant PHPDoc types -->
     <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation">
@@ -62,10 +61,8 @@
     <rule ref="SlevomatCodingStandard.Variables.UnusedVariable" />
     <rule ref="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation" />
     <rule ref="SlevomatCodingStandard.PHP.RequireNowdoc" />
-    <rule ref="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator" />
 
     <!-- Exceptions and error handling. -->
-    <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly" />
     <rule ref="SlevomatCodingStandard.Exceptions.RequireNonCapturingCatch" />
 
     <!-- Complexity metrics. Cognitive complexity is the primary readability target. -->
