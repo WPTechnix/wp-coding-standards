@@ -5,15 +5,34 @@ updates:
     schedule:
       interval: "weekly"
       day: "monday"
+      time: "07:00"
+      timezone: "UTC"
+    versioning-strategy: increase-if-necessary
+    open-pull-requests-limit: 5
     labels:
       - "dependencies"
-      - "php"
-
+    commit-message:
+      prefix: "build"
+      include: "scope"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "monday"
+      time: "07:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
     labels:
       - "dependencies"
       - "ci"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    groups:
+      actions:
+        patterns:
+          - "*"

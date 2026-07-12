@@ -13,6 +13,6 @@ dev/
 Thumbs.db
 
 vendor/
-node_modules/
 composer.lock
+node_modules/
 package.json
