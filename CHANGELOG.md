@@ -5,6 +5,22 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.3] — 2026-07-11
+
+### Changed
+
+- **WPTechnix**: Moved `ReferenceThrowableOnly`, `StrictCall`, and `RequireNumericLiteralSeparator` from WPTechnix-Strict into the base WPTechnix ruleset with appropriate configuration. Added `Squiz.Commenting.FunctionComment` with `skipIfInheritdoc=true` to avoid redundant docblock enforcement on inherited methods.
+
+### Fixed
+
+- **WPTechnix-Strict**: Commented out `SlevomatCodingStandard.TypeHints.ClassConstantTypeHint` and `UselessConstantTypeHint` — these sniffs require PHP 8.3+ to be effective and were producing irrelevant warnings on the PHP 8.0 baseline.
+
+## [1.0.2] — 2026-07-11
+
+### Fixed
+
+- **WPTechnix-Strict**: Prevented phpcbf from automatically removing intentional PHPDoc annotations that duplicate native PHP type hints. Added severity-0 overrides for `ParameterTypeHint.UselessAnnotation`, `ReturnTypeHint.UselessAnnotation`, and `PropertyTypeHint.UselessAnnotation` to stop automated fixers from stripping explicit documentation.
+
 ## [1.0.1] — 2026-07-11
 
 ### Changed
@@ -45,3 +61,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 [1.0.0]: https://github.com/WPTechnix/wp-coding-standards/releases/tag/v1.0.0
 [1.0.1]: https://github.com/WPTechnix/wp-coding-standards/releases/tag/v1.0.1
+[1.0.2]: https://github.com/WPTechnix/wp-coding-standards/releases/tag/v1.0.2
+[1.0.3]: https://github.com/WPTechnix/wp-coding-standards/releases/tag/v1.0.3
