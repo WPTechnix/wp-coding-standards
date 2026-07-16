@@ -16,10 +16,10 @@
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint" />
     <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint" />
     <!-- <rule ref="SlevomatCodingStandard.TypeHints.ClassConstantTypeHint" /> -->
-    <!-- <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint" /> -->
+    <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint" />
     <rule ref="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax" />
 
-    <!-- Prevent Slevomat from automatically removing redundant PHPDoc types -->
+    <!-- Prevent Slevomat from automatically removing redundant PHPDoc types
     <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation">
         <severity>0</severity>
     </rule>
@@ -28,7 +28,7 @@
     </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.UselessAnnotation">
         <severity>0</severity>
-    </rule>
+    </rule>-->
 
     <!-- Classes and OOP design. -->
     <rule ref="SlevomatCodingStandard.Classes.RequireAbstractOrFinal" />

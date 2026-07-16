@@ -2,154 +2,332 @@
 
 [![Validate Rulesets](https://github.com/WPTechnix/wp-coding-standards/actions/workflows/rulesets.yml/badge.svg)](https://github.com/WPTechnix/wp-coding-standards/actions/workflows/rulesets.yml)
 
-PHP_CodeSniffer rulesets for WordPress plugin development. They help you catch coding mistakes, enforce consistent formatting, and keep your code compatible across PHP versions.
+A collection of PHP_CodeSniffer standards for modern WordPress development.
 
-These rulesets combine standards from [WPCS](https://github.com/WordPress/WordPress-Coding-Standards), [VIPCS](https://github.com/Automattic/VIP-Coding-Standards), [PHPCompatibilityWP](https://github.com/PHPCompatibility/PHPCompatibilityWP), [PHPCSExtra](https://github.com/PHPCSStandards/PHPCSExtra), and [Slevomat Coding Standard](https://github.com/slevomat/coding-standard).
+WPTechnix builds on established community standards instead of replacing them. It combines the best parts of WPCS, VIPCS, PHPCompatibilityWP, PHPCSExtra, and Slevomat Coding Standard into a small set of ready-to-use rulesets for WordPress plugins and general PHP projects.
 
-## Quick start
+## Features
+
+* Four ready-to-use coding standards.
+* WordPress and PSR coding styles.
+* PHP 8.0+ compatibility checks.
+* Security, escaping, sanitization, and performance checks.
+* Modern PHP support, including attributes, enums, arrow functions, and advanced PHPDoc syntax.
+* Optional strict analysis for larger projects.
+* Fully Composer installable.
+
+The bundled standards are built on:
+
+* [WordPress Coding Standards (WPCS)](https://github.com/WordPress/WordPress-Coding-Standards)
+* [WordPress VIP Coding Standards (VIPCS)](https://github.com/Automattic/VIP-Coding-Standards)
+* [PHPCompatibilityWP](https://github.com/PHPCompatibility/PHPCompatibilityWP)
+* [PHPCSExtra](https://github.com/PHPCSStandards/PHPCSExtra)
+* [Slevomat Coding Standard](https://github.com/slevomat/coding-standard)
+
+---
+
+# Installation
+
+Install with Composer:
 
 ```bash
 composer require --dev wptechnix/wp-coding-standards
-
-# List available standards
-phpcs -i
-
-# Lint your plugin with the base standard
-phpcs --standard=WPTechnix path/to/your-plugin
 ```
 
-PHP_CodeSniffer auto-discovers installed standards through [phpcodesniffer-composer-installer](https://github.com/PHPCSStandards/composer-installer).
+PHP_CodeSniffer standards are registered automatically through `dealerdirect/phpcodesniffer-composer-installer`.
 
-## Standards overview
-
-There are four standards. Each is complete on its own and resolves everything it needs.
-
-| Standard | What it does |
-|----------|--------------|
-| `WPTechnix` | Base standard. Enforces WordPress conventions with tab indentation and short arrays. Catches common mistakes, security issues, and compatibility problems. |
-| `WPTechnix-PSR4` | Everything in the base, plus PSR-4 file naming (`Plugin.php` instead of `class-plugin.php`). |
-| `WPTechnix-PSR` | Everything in the base, plus PSR-4 file naming and PSR-12 formatting (4-space indent, next-line braces, camelCase naming). |
-| `WPTechnix-Strict` | Standalone strict analysis standard. Enforces type hints, complexity limits, and import discipline. Works on any PHP codebase, not just WordPress. |
-
-You can use standards together by separating them with a comma:
+Verify the installation:
 
 ```bash
-phpcs --standard=WPTechnix-PSR,WPTechnix-Strict path/to/file.php
+phpcs -i
 ```
 
-## When to use each standard
+Example:
 
-| Your project | Start with |
-|---|---|
-| A WordPress plugin with traditional WordPress style | `WPTechnix` |
-| A WordPress plugin using PSR-4 autoloading | `WPTechnix-PSR4` |
-| A WordPress plugin using PSR-4 and PSR-12 | `WPTechnix-PSR` |
-| Any PHP project that needs strict analysis | `WPTechnix-Strict` |
-| A PSR-4 WordPress plugin with strict analysis | `WPTechnix-PSR,WPTechnix-Strict` |
-
-## The standards in detail
-
-### WPTechnix
-
-WPTechnix is the foundation. It starts from `WordPress-Extra` and `WordPress-Docs`, then layers on additional checks:
-
-- **VIPCS**: Security, escaping, performance, and hook checks from the WordPress VIP coding standard. Only platform-agnostic rules are included.
-- **PHPCompatibilityWP**: Flags functions and syntax that won't work on older PHP versions. Default floor is PHP 8.0; you can change this per project.
-- **PHPCSExtra / Universal**: Quality-of-life sniffs like disallowing fully-qualified `true`/`false`/`null`, and flagging `TODO` and `FIXME` comments.
-- **Slevomat**: Dead catch detection, unused variables, import hygiene, null-coalescing enforcement, and formatting for modern PHP features (attributes, enums, arrow functions, union and DNF types).
-
-Some WordPress-Extra sniffs are disabled by default because they either require per-project setup or are too opinionated for plugin development:
-
-- **PrefixAllGlobals** (disabled) -- Enable this in your project's `phpcs.xml` with your plugin prefix.
-- **CronInterval** (disabled) -- The sniff cannot see cron schedules added through filters.
-- **ExceptionNotEscaped** (disabled) -- Exception messages are developer-facing and do not need escaping.
-- **UnknownCapability** (disabled) -- Plugins define custom capabilities outside WPCS's fixed list.
-- **YodaConditions** (disabled) -- Yoda style is not enforced.
-
-What WPTechnix expects from your code:
-
-- Tab indentation
-- Short array syntax (`[]` over `array()`)
-- WordPress docblock conventions
-- Proper escaping, sanitization, and nonce verification
-
-### WPTechnix-PSR4
-
-This standard is identical to WPTechnix except it changes file naming rules. Instead of requiring `class-{name}.php` filenames, it allows `{Name}.php`.
-
+```bash
+phpcs --standard=WPTechnix path/to/plugin
 ```
-# WPTechnix expects:
+
+---
+
+# Included standards
+
+The package contains four standards.
+
+| Standard           | Description                                                 |
+| ------------------ | ----------------------------------------------------------- |
+| `WPTechnix`        | Base WordPress coding standard.                             |
+| `WPTechnix-PSR4`   | Base standard with PSR-4 file naming.                       |
+| `WPTechnix-PSR`    | Base standard with PSR-4 file naming and PSR-12 formatting. |
+| `WPTechnix-Strict` | Standalone strict analysis standard for any PHP project.    |
+
+Standards can be combined.
+
+```bash
+phpcs --standard=WPTechnix-PSR,WPTechnix-Strict src
+```
+
+---
+
+# Which standard should I use?
+
+| Project type                             | Recommended standard             |
+| ---------------------------------------- | -------------------------------- |
+| Traditional WordPress plugin             | `WPTechnix`                      |
+| WordPress plugin using PSR-4 autoloading | `WPTechnix-PSR4`                 |
+| WordPress plugin using PSR-12 formatting | `WPTechnix-PSR`                  |
+| General PHP project                      | `WPTechnix-Strict`               |
+| Modern PSR-based WordPress plugin        | `WPTechnix-PSR,WPTechnix-Strict` |
+
+---
+
+# Standards
+
+## WPTechnix
+
+WPTechnix is the primary WordPress standard.
+
+It starts with `WordPress-Extra` and `WordPress-Docs`, then layers additional quality, compatibility, and modern PHP checks while intentionally avoiding rules that require project-specific configuration or create unnecessary noise.
+
+### Included checks
+
+#### WordPress Coding Standards
+
+Provides the familiar WordPress coding style together with checks for:
+
+* Escaping
+* Sanitization
+* Nonce verification
+* Hook usage
+* Internationalization
+* SQL safety
+* File naming
+* WordPress coding conventions
+
+#### WordPress VIP Coding Standards
+
+Includes a carefully selected subset of platform-independent VIP rules covering:
+
+* Security
+* Performance
+* Escaping
+* Hook validation
+
+Platform-specific VIP sniffs are intentionally excluded.
+
+#### PHPCompatibilityWP
+
+Detects language features and functions that are incompatible with older PHP versions.
+
+The default compatibility target is PHP 8.0 and above.
+
+Projects can override this using the `testVersion` configuration.
+
+#### PHPCSExtra
+
+Adds additional quality checks including:
+
+* `TODO`
+* `FIXME`
+* Fully-qualified `true`, `false`, and `null`
+* Various small consistency improvements
+
+#### Slevomat Coding Standard
+
+Adds modern PHP analysis including:
+
+* Dead catch detection
+* Unused variables
+* Import hygiene
+* Null coalescing recommendations
+* Attributes
+* Enums
+* Arrow functions
+* Union and DNF types
+* Modern PHPDoc syntax, including generic and PHPStan-compatible types
+
+---
+
+### PHPDoc philosophy
+
+WPTechnix follows WordPress documentation conventions while avoiding unnecessary duplication.
+
+The standard intentionally:
+
+* Supports inherited documentation using `@inheritDoc`.
+* Supports modern PHPDoc syntax such as `list`, `array<TKey, TValue>`, `class-string`, and other generic type declarations.
+* Does not require redundant summaries or duplicate parameter and return documentation for inherited methods.
+
+---
+
+### Disabled by default
+
+Some upstream sniffs are intentionally disabled because they require project-specific configuration or frequently produce false positives.
+
+| Sniff                 | Reason                                                                   |
+| --------------------- | ------------------------------------------------------------------------ |
+| `PrefixAllGlobals`    | Requires each project to define its own prefixes.                        |
+| `CronInterval`        | Cannot detect cron schedules registered through filters.                 |
+| `ExceptionNotEscaped` | Exception messages are intended for developers rather than end users.    |
+| `UnknownCapability`   | Plugins commonly register custom capabilities outside the built-in list. |
+| `YodaConditions`      | Yoda conditions are not enforced.                                        |
+
+---
+
+### Coding style
+
+WPTechnix expects:
+
+* Tabs for indentation
+* Short array syntax (`[]`)
+* WordPress coding conventions
+* Modern PHPDoc
+* Secure coding practices
+* Proper escaping and sanitization
+
+---
+
+## WPTechnix-PSR4
+
+WPTechnix-PSR4 is identical to WPTechnix except for file naming.
+
+Instead of WordPress-style filenames:
+
+```text
 src/class-plugin.php
 src/class-admin-settings.php
+```
 
-# WPTechnix-PSR4 allows:
+it allows standard PSR-4 filenames:
+
+```text
 src/Plugin.php
 src/Admin/Settings.php
 ```
 
-It also removes the requirement for `@package` tags in docblocks, since they are redundant under PSR-4 namespacing.
+It also removes the requirement for `@package` annotations because namespaces already provide the necessary organization.
 
-### WPTechnix-PSR
+---
 
-This standard combines PSR-4 file naming with PSR-12 formatting. Compared to the base standard, here is what changes:
+## WPTechnix-PSR
 
-| Rule | WPTechnix | WPTechnix-PSR |
-|------|-----------|---------------|
-| Indentation | Tabs | 4 spaces |
-| Braces | Same line (K&R) | Next line |
-| Naming (`snake_case`) | Enforced | Silenced |
-| File naming | `class-{name}.php` | `{Name}.php` |
+WPTechnix-PSR builds on WPTechnix-PSR4 by replacing WordPress formatting rules with PSR-12 formatting.
 
-WPTechnix-PSR is a superset of WPTechnix-PSR4. If you use WPTechnix-PSR, you do not need WPTechnix-PSR4 as well.
+| Rule                     | WPTechnix           | WPTechnix-PSR |
+| ------------------------ | ------------------- | ------------- |
+| Indentation              | Tabs                | Four spaces   |
+| Braces                   | K&R                 | Next line     |
+| `snake_case` enforcement | Yes                 | No            |
+| File naming              | `class-example.php` | `Example.php` |
 
-### WPTechnix-Strict
+`WPTechnix-PSR` already includes the functionality of `WPTechnix-PSR4`. There is no need to enable both simultaneously.
 
-WPTechnix-Strict is an additional standard for better strictness.
+---
 
-It enforces:
+## WPTechnix-Strict
 
-- **Type hints**: Parameters, return types, properties, and class constants must have type declarations.
-- **Complexity limits**: Cognitive complexity (warn at 12, error at 20), cyclomatic complexity (max 10), and nesting level (max 5).
-- **OOP design**: Non-interface classes must be `abstract` or `final`. Public properties are forbidden unless `readonly`. Use `self` instead of class name for static references.
-- **Code quality**: Prefer early exit over nested `if` blocks. Disallow empty functions and catches. Require null-safe operator where applicable.
-- **Import discipline**: Every namespaced reference must be imported with `use`. Fully-qualified global functions and constants are allowed.
+WPTechnix-Strict is a standalone standard that adds stricter static analysis and code quality checks for modern PHP projects.
 
-Use it alone or layered on top of another standard:
+Unlike the other standards, it is **not** WordPress-specific and does **not** depend on `WPTechnix`. It can be used with any PHP 8.0+ codebase or layered on top of another WPTechnix standard.
+
+### Included checks
+
+#### Type declarations
+
+Encourages modern PHP type safety by enforcing:
+
+* Parameter type declarations
+* Return type declarations
+* Property type declarations
+* Detection of redundant class constant type declarations where supported by the configured PHP version
+
+#### Code quality
+
+Improves maintainability by enforcing:
+
+* `declare(strict_types=1);`
+* Early returns over deeply nested conditionals
+* Static closures where possible
+* Null-safe operator usage where applicable
+* No empty functions
+* No empty `empty()` control structures
+* No implicit array creation
+* `nowdoc` where interpolation is unnecessary
+* Non-capturing `catch` blocks where the exception variable is unused
+
+#### Object-oriented design
+
+Encourages consistent object-oriented design:
+
+* Classes should be `abstract` or `final`
+* Prefer `self` over repeating the current class name
+* Public properties are discouraged unless `readonly`
+
+#### Complexity metrics
+
+Helps prevent overly complex code by enforcing:
+
+| Metric                | Warning |            Error |
+| --------------------- | ------: | ---------------: |
+| Cognitive complexity  |      12 |               20 |
+| Cyclomatic complexity |       — | 10 (20 absolute) |
+| Nesting level         |       — |  5 (10 absolute) |
+
+#### Import discipline
+
+Encourages consistent namespace usage by requiring imported namespaced symbols while allowing normal use of global PHP functions and constants.
+
+---
+
+## Combining standards
+
+`WPTechnix-Strict` is designed to complement the other standards.
+
+Examples:
 
 ```bash
-phpcs --standard=WPTechnix,WPTechnix-Strict path/to/file.php
-# OR 
-phpcs --standard=WPTechnix-PSR4,WPTechnix-Strict path/to/file.php
-# OR
-phpcs --standard=WPTechnix-PSR,WPTechnix-Strict path/to/file.php
+phpcs --standard=WPTechnix,WPTechnix-Strict src
 ```
 
-## Configuration in your project
+```bash
+phpcs --standard=WPTechnix-PSR4,WPTechnix-Strict src
+```
 
-Create a `phpcs.xml` file at the root of your project:
+```bash
+phpcs --standard=WPTechnix-PSR,WPTechnix-Strict src
+```
+
+---
+
+# Project configuration
+
+Create a `phpcs.xml` file in the root of your project.
 
 ```xml
 <?xml version="1.0"?>
-<ruleset name="MyProject">
-    <description>My project coding standard</description>
+<ruleset name="My Project">
+    <description>Project coding standard</description>
 
-    <!-- Choose your standards -->
+    <!-- Choose one -->
     <rule ref="WPTechnix" />
-    <!-- OR <rule ref="WPTechnix-PSR" /> -->
+    <!-- <rule ref="WPTechnix-PSR4" /> -->
+    <!-- <rule ref="WPTechnix-PSR" /> -->
+
+    <!-- Optional -->
     <rule ref="WPTechnix-Strict" />
 
-    <!-- Set your PHP version for compatibility checks -->
-    <!-- 8.2- means PHP 8.2 and above -->
+    <!-- PHP compatibility target -->
+    <!-- 8.2- means PHP 8.2 and newer -->
     <config name="testVersion" value="8.2-" />
 
-    <!-- Set your plugin textdomain for i18n checks -->
+    <!-- Configure your text domain -->
     <rule ref="WordPress.WP.I18n">
         <properties>
             <property name="textdomain" value="my-plugin" />
         </properties>
     </rule>
 
-    <!-- Enable prefix checks with your plugin slug -->
+    <!-- Enable project-specific prefix checks -->
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
             <property name="prefixes" type="array">
@@ -160,17 +338,57 @@ Create a `phpcs.xml` file at the root of your project:
 </ruleset>
 ```
 
-Then run:
+Run PHPCS:
 
 ```bash
 phpcs
 ```
 
-## Requirements
+Or scan a specific directory:
 
-- PHP 8.0 or later
-- Composer
+```bash
+phpcs src
+```
 
-## License
+Automatically fix supported issues:
+
+```bash
+phpcbf
+```
+
+---
+
+# Frequently customized options
+
+Most projects customize only three things:
+
+| Option              | Purpose                                                    |
+| ------------------- | ---------------------------------------------------------- |
+| `testVersion`       | Select the minimum supported PHP version.                  |
+| `WordPress.WP.I18n` | Configure your plugin text domain.                         |
+| `PrefixAllGlobals`  | Enable global prefix validation using your project prefix. |
+
+Everything else works with the default configuration.
+
+---
+
+# Requirements
+
+* PHP 8.0 or later
+* Composer
+
+All PHPCS dependencies are installed automatically through Composer.
+
+---
+
+# Contributing
+
+Bug reports, suggestions, and pull requests are welcome.
+
+If you discover a false positive or believe a sniff should be configured differently, please open an issue describing the problem together with a reproducible example.
+
+---
+
+# License
 
 MIT

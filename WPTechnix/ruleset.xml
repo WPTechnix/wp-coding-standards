@@ -190,4 +190,42 @@
             <property name="minDigitsAfterDecimalPoint" value="20"/>
         </properties>
     </rule>
+
+    <!-- To broad, also require short description where not needed such as inline @var, methods which short description in parent class or interface 
+    https://github.com/WordPress/WordPress-Coding-Standards/issues/403 -->
+	<rule ref="Generic.Commenting.DocComment.MissingShort">
+		<severity>0</severity>
+	</rule>
+
+    <!-- Expect a param tag even on methods which is @inheritDoc -->
+	<rule ref="Squiz.Commenting.FunctionComment.MissingParamTag">
+		<severity>0</severity>
+	</rule>
+
+    <!-- Expect a phpdoc return tag even on methods which is @inheritDoc -->
+	<rule ref="Squiz.Commenting.FunctionComment.MissingReturn">
+		<severity>0</severity>
+	</rule>
+    <rule ref="Squiz.Commenting.FunctionComment.InvalidReturn">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Do not recongnize advanced phpdoc types such as list, array<>, phpstan advanced types -->
+	<rule ref="Squiz.Commenting.FunctionComment.IncorrectTypeHint">
+		<severity>0</severity>
+	</rule>
+
+    <rule ref="Squiz.Commenting.VariableComment.MissingVar">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Commenting.VariableComment.VarOrder">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Commenting.VariableComment.IncorrectVarType">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Commenting.VariableComment.TagNotAllowed">
+        <severity>0</severity>
+    </rule>
+
 </ruleset>

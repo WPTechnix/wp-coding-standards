@@ -86,4 +86,9 @@
         <severity>0</severity>
     </rule>
 
+    <!-- phpdoc formatting -->
+    <rule ref="Squiz.Commenting.FunctionComment.SpacingAfterParamType">
+        <severity>0</severity>
+    </rule>
+
 </ruleset>
