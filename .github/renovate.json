@@ -1,0 +1,42 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "timezone": "UTC",
+  "schedule": ["before 09:00 on monday"],
+  "labels": ["dependencies"],
+  "prConcurrentLimit": 5,
+  "semanticCommits": "enabled",
+  "rangeStrategy": "widen",
+  "packageRules": [
+    {
+      "description": "The bundled sniffers (wpcs, vipwpcs, slevomat, php_codesniffer, phpcompatibility) ARE this package's product: a bump changes the linting behaviour inherited by every downstream WPTechnix repo. Never automerge — a human reviews and re-runs the rulesets on each change. Ranges are widened so consumers keep a broad compatible window.",
+      "matchDepTypes": ["require"],
+      "rangeStrategy": "widen",
+      "semanticCommitType": "build",
+      "automerge": false,
+      "addLabels": ["review-required"]
+    },
+    {
+      "description": "GitHub Actions: group into one PR, pin to commit SHAs, and automerge minor/patch/digest.",
+      "matchManagers": ["github-actions"],
+      "groupName": "github-actions",
+      "semanticCommitType": "ci",
+      "addLabels": ["ci"]
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch", "digest", "pin", "pinDigest"],
+      "automerge": true
+    },
+    {
+      "description": "Major bumps always need a human — never automerge, and flag them.",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "addLabels": ["major-update"]
+    }
+  ]
+}
