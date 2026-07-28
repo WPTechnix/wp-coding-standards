@@ -5,6 +5,16 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.1] — 2026-07-28
+
+### Fixed
+
+* **composer.json**: Removed `config.platform.php` entry to fix dependency resolution on PHP 8.1+ — Composer now uses the actual runtime version instead of a hardcoded 8.0 baseline.
+
+### Changed
+
+* **composer.json**: Restricted the PHP requirement to `^8.0` (was `>=8.0`) to guard against untested PHP 9.x installations.
+
 ## [1.1.0] — 2026-07-16
 
 ### Changed
@@ -70,6 +80,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 [1.0.1]: https://github.com/WPTechnix/wp-coding-standards/releases/tag/v1.0.1
 [1.0.2]: https://github.com/WPTechnix/wp-coding-standards/releases/tag/v1.0.2
 [1.0.3]: https://github.com/WPTechnix/wp-coding-standards/releases/tag/v1.0.3
+[1.1.1]: https://github.com/WPTechnix/wp-coding-standards/releases/tag/v1.1.1
 [1.1.0]: https://github.com/WPTechnix/wp-coding-standards/releases/tag/v1.1.0
 
 One small suggestion: I'd group the first three bullets into a single item about inherited PHPDoc and keep the advanced type support as a separate bullet. That makes the changelog slightly shorter while conveying the same information.
