@@ -100,7 +100,6 @@
     <rule ref="WordPressVIPMinimum.Constants.ConstantString" />
     <rule ref="WordPressVIPMinimum.Performance.RegexpCompare" />
     <rule ref="WordPressVIPMinimum.Files.IncludingNonPHPFile" />
-    <rule ref="WordPressVIPMinimum.Functions.DynamicCalls" />
     <rule ref="WordPressVIPMinimum.Performance.CacheValueOverride" />
     <rule ref="WordPressVIPMinimum.Performance.NoPaging" />
     <rule ref="WordPressVIPMinimum.Performance.OrderByRand" />
